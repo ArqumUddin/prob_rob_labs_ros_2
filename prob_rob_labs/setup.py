@@ -33,8 +33,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'image_mean_feature_x = image_mean_feature_x.image_mean_feature_x:main',
-            'flaky_door_opener = flaky_door_opener.flaky_door_opener:main',
+            'particle_filter = localization.particle_filter:main',
+            'gmm_ukf_filter = localization.gmm_ukf_filter:main',
+            'plot_comparison = localization.plot_comparison:main',
         ],
     }
 )
