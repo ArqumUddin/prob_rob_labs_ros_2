@@ -7,7 +7,7 @@ This project implements and compares two localization algorithms for TurtleBot3:
 Both filters use the same motion model from Probabilistic Robotics Table 5.3 and a 4-ray LiDAR measurement model.
 
 NOTE:
-The source code has a lot of comments to explain my thought process precisely. For that reason, this README holds the purpose
+The source code has a lot of comments to explain our thought process precisely. For that reason, this README holds the purpose
 of helping with the installation and run process of the code. Furthermore, demos can be found under demos/.
 ---
 
