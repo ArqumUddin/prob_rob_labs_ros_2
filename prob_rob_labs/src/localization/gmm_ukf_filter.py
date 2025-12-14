@@ -402,7 +402,12 @@ class GaussianMixtureUKF(Node):
         # Calculate spatial spread (weighted std of hypothesis positions)
         # This is comparable to PF's particle spread metric
         weighted_mean_pos = np.average(particle_means[:, :2], weights=particle_weights, axis=0)
-        weighted_variance = np.average((particle_means[:, :2] - weighted_mean_pos)**2, weights=particle_weights)
+        
+        # Calculate squared Euclidean distance for each particle (dx^2 + dy^2)
+        # This results in a 1D array of shape (N,), which matches the weights shape.
+        diffs_squared = (particle_means[:, :2] - weighted_mean_pos)**2
+        dists_squared = np.sum(diffs_squared, axis=1) 
+        weighted_variance = np.average(dists_squared, weights=particle_weights)
         spatial_spread = np.sqrt(weighted_variance)
         self.pub_uncertainty.publish(Float32(data=float(spatial_spread)))
 
