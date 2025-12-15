@@ -54,6 +54,7 @@ class FilterComparisonPlotter(Node):
 
         # Animation
         self.ani = FuncAnimation(self.fig, self.update_plot, interval=100, blit=False)
+        self.create_timer(0.05, lambda: plt.pause(0.001))
 
         self.get_logger().info("Filter Comparison Plotter Initialized")
         self.get_logger().info("Waiting for data from filters and ground truth...")
@@ -232,7 +233,7 @@ def main(args=None):
     rclpy.init(args=args)
     node = FilterComparisonPlotter()
     plt.ion()
-    plt.show()
+    plt.show(block=False)
 
     try:
         rclpy.spin(node)
