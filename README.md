@@ -144,6 +144,8 @@ Then add the following topics:
 - `/pf_particles` - Particle cloud visualization (PoseArray)
 - `/upf_particles` - GMM-UKF hypothesis visualization (PoseArray)
 
+Demo rviz2 demo video can be found here: https://drive.google.com/file/d/1UtEK-xoE0X3IqPuY-ERmY3FWYKPKjAHY/view?usp=drive_link
+
 ---
 
 ## Key Features
@@ -184,7 +186,8 @@ prob_rob_labs/
 |── worlds/
 |   └── room.world               # Hallway environment
 └── demos/
-    └──
+    ├── Comparison.png           # Sample Figure
+    └── Video                    
 ```
 
 ---
