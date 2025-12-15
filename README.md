@@ -2,7 +2,7 @@
 
 This project implements and compares two localization algorithms for TurtleBot3:
 - **Particle Filter (PF)**: Monte Carlo Localization with 1000 particles
-- **GMM-UKF**: Gaussian Mixture Model with Unscented Kalman Filter (20 hypotheses)
+- **GMM-UKF**: Gaussian Mixture Model with Unscented Kalman Filter (100 hypotheses)
 
 Both filters use the same motion model from Probabilistic Robotics Table 5.3 and a 4-ray LiDAR measurement model.
 
@@ -163,7 +163,7 @@ Both filters now share:
 Both filters implement the same physics-based motion model but differ in how they represent uncertainty:
 
 - **PF**: Represents belief as 1000 weighted samples
-- **GMM-UKF**: Represents belief as ~5-20 Gaussian distributions
+- **GMM-UKF**: Represents belief as ~4-100 Gaussian distributions
 
 ---
 
