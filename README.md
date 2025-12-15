@@ -39,7 +39,11 @@ source ~/.bashrc
 ### 2. Build the Workspace
 
 ```bash
-cd ~/Coursework/prob_rob_labs_ros_2
+# Clone this repo and switch to this branch first
+git clone https://github.com/ArqumUddin/prob_rob_labs_ros_2.git
+cd /path/to/prob_rob_labs_ros_2
+git checkout gmm_ukf_comparison
+
 colcon build --packages-select prob_rob_labs --symlink-install
 source install/setup.bash
 ```
@@ -53,7 +57,7 @@ You'll need **4 separate terminals** to run the full system (or 5 if you want re
 ### Terminal 1: Launch TurtleBot3 Simulation
 
 ```bash
-cd ~/Coursework/prob_rob_labs_ros_2
+cd /path/to/prob_rob_labs_ros_2
 source install/setup.bash
 ros2 launch prob_rob_labs turtlebot3_room_launch.py
 ```
@@ -63,7 +67,7 @@ This launches Gazebo with the TurtleBot3 in a hallway environment with a red box
 ### Terminal 2: Run Particle Filter
 
 ```bash
-cd ~/Coursework/prob_rob_labs_ros_2
+cd /path/to/prob_rob_labs_ros_2
 source install/setup.bash
 ros2 run prob_rob_labs particle_filter
 ```
@@ -76,7 +80,7 @@ You'll see console output like:
 ### Terminal 3: Run GMM-UKF Filter
 
 ```bash
-cd ~/Coursework/prob_rob_labs_ros_2
+cd /path/to/prob_rob_labs_ros_2
 source install/setup.bash
 ros2 run prob_rob_labs gmm_ukf_filter
 ```
@@ -97,7 +101,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ### Terminal 5 (Optional): Real-time Visualization
 
 ```bash
-cd ~/Coursework/prob_rob_labs_ros_2
+cd /path/to/prob_rob_labs_ros_2
 source install/setup.bash
 ros2 run prob_rob_labs plot_comparison
 ```
