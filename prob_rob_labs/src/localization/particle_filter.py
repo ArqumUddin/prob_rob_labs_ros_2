@@ -108,7 +108,7 @@ class ParticleFilter(Node):
         """
         if self.last_scan is None: return
 
-        # Use shared preprocessing logic (without max_range validation)
+        # Use shared preprocessing logic as the gmm ukf filter to maintain consistency
         observed_4_ranges, sensor_max_range = preprocess_lidar_observation(self.last_scan)
 
         for particle_idx in range(self.num_particles):
