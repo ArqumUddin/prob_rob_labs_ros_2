@@ -232,11 +232,15 @@ class FilterComparisonPlotter(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = FilterComparisonPlotter()
+
     plt.ion()
     plt.show(block=False)
 
     try:
-        rclpy.spin(node)
+        # Use spin_once in a loop to allow matplotlib to update
+        while rclpy.ok() and plt.fignum_exists(node.fig.number):
+            rclpy.spin_once(node, timeout_sec=0.01)
+            plt.pause(0.01)  # Allow matplotlib to process events
     except KeyboardInterrupt:
         pass
     finally:

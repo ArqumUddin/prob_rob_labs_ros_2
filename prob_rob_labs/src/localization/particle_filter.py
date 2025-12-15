@@ -36,7 +36,7 @@ class ParticleFilter(Node):
         # Global Localization: Scatter particles randomly across the entire map
         self.particles[:, 0] = np.random.uniform(self.x_lim[0], self.x_lim[1], self.num_particles)
         self.particles[:, 1] = np.random.uniform(self.y_lim[0], self.y_lim[1], self.num_particles)
-        self.particles[:, 2] = np.random.uniform(-np.pi, np.pi, self.num_particles)
+        self.particles[:, 2] = np.random.uniform(-1, 1, self.num_particles)
         
         # Initialize weights uniformly (1/N)
         self.particles[:, 3] = 1.0 / self.num_particles

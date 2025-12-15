@@ -19,7 +19,7 @@ class GaussianMixtureUKF(Node):
         # Number of Gaussian Hypotheses (Particles). 
         # Unlike PF which needs 1000 points, we only need ~20 because each particle here is a full Gaussian distribution (Mean + Covariance)
         # This allows us to track the probability "blobs" rather than raw points, saving computation
-        self.num_particles = 20
+        self.num_particles = 100
         
         # Map boundaries which emulate a very long hallway the robot has to travel down
         self.x_lim = [-12.0, 12.0]
@@ -36,10 +36,9 @@ class GaussianMixtureUKF(Node):
         self.lamb = (self.alpha**2 * self.L) - self.L
         
         # Q determines how much we trust the Motion Model. 
-        # I increased this from 0.1 to 0.2 because the filter was becoming "Overconfident".
         # If Q is too small, the filter thinks it knows exactly where it is and ignores the sensors.
         # By increasing this, I am essentially telling the filter that it should trust the sensors more
-        self.Q = np.diag([0.2**2, 0.2**2, 0.1**2])
+        self.Q = np.diag([0.1**2, 0.1**2, 0.1**2])
         
         # R determines how much we trust the Sensors
         # This acts like 'sigma' in the PF. Higher values = We tolerate more sensor noise.
@@ -52,7 +51,7 @@ class GaussianMixtureUKF(Node):
                 'mean': np.array([
                     np.random.uniform(self.x_lim[0], self.x_lim[1]),
                     np.random.uniform(self.y_lim[0], self.y_lim[1]),
-                    np.random.uniform(-np.pi, np.pi) 
+                    np.random.uniform(-1, 1) 
                 ]),
                 'cov': np.eye(3) * 0.5, # Initial uncertainty (start with a loose belief)
                 'weight': 1.0 / self.num_particles
@@ -338,7 +337,7 @@ class GaussianMixtureUKF(Node):
             new_mean = np.array([
                 np.random.uniform(self.x_lim[0], self.x_lim[1]),
                 np.random.uniform(self.y_lim[0], self.y_lim[1]),
-                np.random.uniform(-np.pi, np.pi) 
+                np.random.uniform(-1, 1) 
             ])
             new_cov = np.eye(3) * 0.5
             
@@ -383,7 +382,8 @@ class GaussianMixtureUKF(Node):
 
         # Step 2 : Normalize Weights so they sum to 1
         total_weight = sum(p['weight'] for p in self.particles)
-        for p in self.particles: p['weight'] /= total_weight
+        if total_weight > 0:
+            for p in self.particles: p['weight'] /= total_weight
 
         # Step 3 : Manage Hypotheses
         self.manage_hypotheses()
