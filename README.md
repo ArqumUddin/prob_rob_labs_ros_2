@@ -128,6 +128,14 @@ The plots update in real-time as the robot moves.
 - **Hypotheses**: Number of active Gaussian components
 - **Uncertainty**: Average covariance determinant - measures filter confidence
 
+### My Analysis and Hypothesis
+
+After analyzing the results, my hypothesis is that while my initial intuition wasn't wrong, it was incomplete. Mathematically, the GMM-UKF is the more sophisticated algorithm, and I expected it to outperform the 'simpler' Particle Filter. However, I underestimated the impact of the environment itself.
+
+My test environment is a long, featureless, symmetric hallway that creates a uniform probability distribution (a flat line of uncertainty). The GMM-UKF struggled here because a Gaussian distribution fundamentally cannot represent a flat line; it forces a peak. This caused the filter to 'guess' a specific location with high confidence, only to jump when the sensors contradicted it, creating the jitter seen in the graphs.
+
+In contrast, the Particle Filter succeeded by brute force. It didn't try to be smart; it simply flooded the hallway with thousands of particles to cover every possibility. This experiment highlighted that while GMM-UKF is mathematically elegant, the 'brute force' of a Particle Filter is often superior in low-dimensional, highly ambiguous environments. The jitter wasn't a bug in the code, but a mismatch between the algorithm's assumptions and the environment's reality.
+
 ---
 
 ## Visualizing in RViz (Optional)
